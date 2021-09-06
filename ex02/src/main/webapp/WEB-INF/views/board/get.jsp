@@ -41,11 +41,10 @@
 							</div>
 
 							<button data-oper='modify' class="btn btn-default">Modify</button>
-							<button data-oper='list' class="btn btn-info">List</button>
-
-							<input type="submit" value="Submit">
-							<input type="submit"
-								formaction="/action_page2.php" value="Submit as Admin">
+							<a class="btn btn-success" href="list?pageNum=${cri.pageNum}&amount=${cri.amount}">목록으로</a>
+							
+							<input type="hidden" name="pageNum" value="${cri.pageNum}">
+							<input type="hidden" name="amount" value="${cri.amount}">
 
 						</form>
 
