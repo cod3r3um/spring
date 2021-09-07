@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.board.mapper.ReplyMapper">
+
+	<insert id="insert">
+		<selectKey keyProperty="rno" resultType="long"
+			order="BEFORE">
+			SELECT SEQ_REPLY.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_REPLY (
+		RNO,
+		BNO,
+		REPLY,
+		REPLYER,
+		REPLYDATE,
+		UPDATEDATE
+		)
+		VALUES (
+		#{rno},
+		#{bno},
+		#{reply},
+		#{replyer},
+		SYSDATE,
+		SYSDATE
+		)
+	</insert>
+	
+	<select id="read" resultType="ReplyVO">
+		SELECT RNO,
+		BNO,
+		REPLY,
+		REPLYER,
+		REPLYDATE,
+		UPDATEDATE
+		FROM TBL_REPLY
+		WHERE RNO = #{rno}
+	</select>
+	
+	<select id="getList" resultType="ReplyVO">	<!-- 게시글 번호에 해당하는 댓글만 조회 -->
+		SELECT RNO,
+		BNO,
+		REPLY,
+		REPLYER,
+		REPLYDATE,
+		UPDATEDATE
+		FROM TBL_REPLY
+		WHERE BNO = #{bno}
+		ORDER BY rno ASC
+	</select>
+	
+	<update id="update">
+		UPDATE TBL_REPLY
+		SET REPLY=#{reply},
+		UPDATEDATE=SYSDATE
+		WHERE RNO=#{rno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM TBL_REPLY
+		WHERE RNO=#{rno}
+	</delete>
+
+</mapper>
