@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- users_mapper.xml -->
+<mapper namespace="UserDAO">
+	<!-- 전체 조회 --> 
+	<select id="getUserList" resultType="userVO" parameterType="userVO">
+		select id, password, name, role
+		from users
+		<where>
+			<if test="id != null and id != '' ">
+				id like '%' || #{id} || '%'
+			</if>
+			<if test="name != null and name != '' ">
+				and name like '%' || #{name} || '%'
+			</if>
+		</where>
+	</select>
+	<!-- 단건 조회 -->
+	<select id="getUser" parameterType="userVO" resultType="userVO">
+		select id,
+		password, name, role
+		from users
+		where id=#{id}
+	</select>
+	<select id="getUserListMap" parameterType="userVO" resultType="map">
+		select id        "id", 
+		       password  "password", 
+		       name      "name", 
+		       role      "role"
+		from users
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertUser" parameterType="userVO">
+		insert into users (id, password, name, role)
+		values ( #{id},
+		#{password},
+		#{name},
+		#{role} )
+	</insert>
+
+	<!-- 수정 -->
+	<update id="updateUser" parameterType="userVO">
+		update users set
+		password = #{password},
+		name = #{name},
+		role = #{role}
+		where id = #{id}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteUser" parameterType="userVO">
+		delete from users
+		where id = #{id}
+	</delete>
+
+</mapper>

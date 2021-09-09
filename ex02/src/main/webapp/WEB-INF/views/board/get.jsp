@@ -43,7 +43,7 @@
 									placeholder="Enter writer" />
 							</div>
 
-							<button data-oper='modify' class="btn btn-default">Modify</button>
+							<button data-oper='modify' class="btn btn-default">수정이</button>
 							<a class="btn btn-success"
 								href="list?pageNum=${cri.pageNum}&amount=${cri.amount}">목록으로</a>
 
@@ -51,26 +51,32 @@
 							<input type="hidden" name="amount" value="${cri.amount}">
 
 						</form>
+						<!-- 첨부파일 -->
+						<div>
+							<c:forEach items="${board.attachList}" var="attach">
+								<a href="download?uuid=${attach.uuid}">${attach.fileName}</a>
+							</c:forEach>
+						</div>
 					</div>
-
+					
 					<!-- 댓글 등록 -->
-					<div class="panel-heading">
+					<div>
 						<form id="replyForm">
-							<input type="hidden" name="bno" value="${board.bno}"> <input
-								name="replyer" value="kitty"> <input name="reply">
+							<input type="hidden" name="bno" value="${board.bno}"> 
+								<input name="replyer" value="papaya"> 
+								<input name="reply">
 							<button type="button" id="saveReply">comment</button>
 						</form>
 					</div>
 					<!-- 댓글 목록 -->
-					<div class="row">
-						<div class="col-lg-12">
-							<h1 class="page-header">COMMENTS</h1>
-							<ul class="chat">
-
-							</ul>
+					<div>
+						<div class="panel-footer">댓글</div>
+						<div>
+							<ul class="chat"></ul>
 						</div>
+						<div ></div>
 					</div>
-
+					
 					<script>
 						let bno = "${board.bno}";
 						// 등록 처리
@@ -93,7 +99,10 @@
 									+ data.replyer + '</strong>'
 									+ '<small class="pull-right text-muted">'
 									+ data.replyDate + '</small>' + '</div>'
-									+ '<p>' + data.reply + '</p>' + '</div>'
+									+ '<p>' + data.reply + '</p>' 
+									+ '<button type="button" class="btnreplyUpdate">수정</button>'
+									+ '<button type="button" class="btnreplyDelete">삭제</button>'
+									+ '</div>'
 									+ '</li>';
 						}
 
@@ -107,12 +116,14 @@
 							success : function(datas) {
 								// console.log(datas);
 								str = "";
-								for (i = 0; i < datas.length; i++) {
-									str += makeLi(datas[i]);
+								for (i = 0; i < datas.list.length; i++) {
+									console.log(datas);
+									str += makeLi(datas.list[i]);
 								}
 								$(".chat").html(str);
 							}
 						});
+						
 					</script>
 				</div>
 				<!-- /.panel-body -->

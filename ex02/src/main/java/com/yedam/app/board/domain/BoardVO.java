@@ -1,6 +1,7 @@
 package com.yedam.app.board.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,5 +19,7 @@ public class BoardVO {
 	private Date regdate;		// 작성일자
 	@JsonIgnore
 	private Date updatedate;	// 수정일자
+	private long replycnt;
 	
+	List<BoardAttachVO> attachList;
 }

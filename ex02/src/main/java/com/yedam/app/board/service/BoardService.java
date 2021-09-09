@@ -2,6 +2,7 @@ package com.yedam.app.board.service;
 
 import java.util.List;
 
+import com.yedam.app.board.domain.BoardAttachVO;
 import com.yedam.app.board.domain.BoardVO;
 import com.yedam.app.board.domain.Criteria;
 
@@ -24,5 +25,8 @@ public interface BoardService {
 		
 		// 전체 데이터 건수
 		public int getTotalCount(Criteria cri);
+		
+		// 첨부파일 단건조회
+		public BoardAttachVO attachRead(String uuid);
 		
 }
